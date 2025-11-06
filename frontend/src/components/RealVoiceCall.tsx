@@ -52,17 +52,24 @@ const RealVoiceCall: React.FC<RealVoiceCallProps> = ({
 
       if (error === "not-allowed") {
         setError(
-          "Microphone permission denied. Please allow microphone access and try again."
+          "Microphone permission denied. Please refresh and allow microphone access."
         );
       } else if (error === "no-speech") {
         onMessage(
           "ai",
           "🔇 No speech detected. Please speak louder and try again."
         );
+        setError("No speech detected. Please speak clearly and try again.");
       } else if (error === "network") {
-        setError("Network error. Please check your connection and try again.");
+        setError(
+          "Network error with speech recognition. Please use text input instead."
+        );
+      } else if (error === "service-not-allowed") {
+        setError("Speech recognition blocked. Please use text input instead.");
       } else {
-        setError(`Speech recognition error: ${error}. Please try again.`);
+        setError(
+          `Speech recognition failed: ${error}. Please use text input instead.`
+        );
       }
     }
   }, []);
@@ -304,15 +311,32 @@ const RealVoiceCall: React.FC<RealVoiceCallProps> = ({
             <strong>Microphone Error</strong>
             <div style={{ marginTop: "8px", fontSize: "14px" }}>{error}</div>
           </div>
-          <button
-            className="btn btn-primary"
-            onClick={() => {
-              setError(null);
-              startRecording();
-            }}
+          <div
+            style={{ display: "flex", gap: "12px", justifyContent: "center" }}
           >
-            Try Again
-          </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                setError(null);
+                startRecording();
+              }}
+            >
+              Try Voice Again
+            </button>
+
+            <button
+              className="btn btn-secondary"
+              onClick={() => {
+                const question = prompt("Please type your question:");
+                if (question) {
+                  handleTranscription(question);
+                  setError(null);
+                }
+              }}
+            >
+              Use Text Input
+            </button>
+          </div>
           <div
             style={{
               padding: "12px",
