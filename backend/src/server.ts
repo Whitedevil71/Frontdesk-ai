@@ -20,7 +20,9 @@ const io = new Server(server, {
     origin: [
       process.env.FRONTEND_URL || "http://localhost:5173",
       "https://frontdesk-ai-supervisor.vercel.app",
-      "http://localhost:5173"
+      "https://frontdesk-axvaym8jp-arpit-sharmas-projects-ae7bd030.vercel.app",
+      "http://localhost:5173",
+      /\.vercel\.app$/
     ],
     methods: ["GET", "POST"]
   }
@@ -31,7 +33,9 @@ app.use(cors({
   origin: [
     process.env.FRONTEND_URL || "http://localhost:5173",
     "https://frontdesk-ai-supervisor.vercel.app",
-    "http://localhost:5173"
+    "https://frontdesk-axvaym8jp-arpit-sharmas-projects-ae7bd030.vercel.app",
+    "http://localhost:5173",
+    /\.vercel\.app$/
   ]
 }));
 app.use(express.json());
