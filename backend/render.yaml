@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: frontdesk-ai-backend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URL
+        value: YOUR_MONGODB_ATLAS_URL
+      - key: LIVEKIT_URL
+        value: YOUR_LIVEKIT_URL
+      - key: LIVEKIT_API_KEY
+        value: YOUR_LIVEKIT_API_KEY
+      - key: LIVEKIT_API_SECRET
+        value: YOUR_LIVEKIT_API_SECRET
+      - key: OPENAI_API_KEY
+        value: YOUR_OPENAI_API_KEY
+      - key: FRONTEND_URL
+        value: https://frontdesk-ai-supervisor.vercel.app
